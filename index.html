@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Письмо тебе</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #000;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .stars {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+
+        .star {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background-color: #fff;
+            animation: twinkle 3s infinite;
+        }
+
+        .romantic-container {
+            color: #fff; /* Белый цвет текста */
+            text-align: center;
+            padding: 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        h1 {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        p {
+            font-size: 16px;
+            max-width: 80%;
+            margin: 0 auto 20px;
+            text-indent: 20px;
+        }
+
+        a {
+            text-decoration: none; /* Убираем подчеркивание ссылки */
+        }
+
+        /* Желтый цвет только для слова "Apricity" */
+        .yellow-text {
+            color: #ffdb58; /* Солнечный желтый цвет */
+        }
+
+        @keyframes twinkle {
+            0% {
+                opacity: 0;
+            }
+            50% {
+                opacity: 1;
+            }
+            100% {
+                opacity: 0;
+            }
+        }
+
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 20px;
+            }
+
+            p {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="stars">
+        <!-- JavaScript для создания звезд -->
+    </div>
+    <div class="romantic-container">
+        <a href="https://en.wiktionary.org/wiki/apricity"><h1><span class="yellow-text">Apricity</span></h1></a>
+        <p>
+            Как я в пустыне влачился, стремясь к своей серафиме, так и она явилась передо мной, словно светоч во мраке ночи. Взгляд мой, как у прозорливого пророка, проник в её душу, словно древние мудрецы искали истину в дали.
+        </p>
+        <p>
+            Мои дни наполняются мудростью, подобно стихам из "Пророка" Пушкина:<br>
+            'И живу я, как птица над бездной, мчащейся к звёздам.'<br>
+            Её сердце резонирует, как домбра звучит в моей душе, под моим взором, и мелодия смеха ее звучит громко и ясно.
+        </p>
+        <p>
+            Ты сеешь чуму и страдание, но и что-то более глубокое. Внутри меня, словно цветок в ожидании весеннего дождя, бурлит симпатия и восхищение. Словами легкими как сон, моих ушей коснулась она, и их наполнил смех и звон. Внял я неба содроганье.
+        </p>
+    </div>
+
+    <script>
+        // JavaScript для создания звезд
+        const starsContainer = document.querySelector(".stars");
+
+        for (let i = 0; i < 100; i++) {
+            const star = document.createElement("div");
+            star.classList.add("star");
+            star.style.left = `${Math.random() * 100}%`;
+            star.style.top = `${Math.random() * 100}%`;
+            star.style.animationDelay = `${Math.random() * 3}s`;
+            starsContainer.appendChild(star);
+        }
+    </script>
+</body>
+</html>
