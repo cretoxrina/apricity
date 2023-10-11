@@ -35,7 +35,7 @@
         }
 
         .romantic-container {
-            color: #fff; /* Белый цвет текста */
+            color: #fff;
             text-align: center;
             padding: 20px;
             position: relative;
@@ -55,12 +55,11 @@
         }
 
         a {
-            text-decoration: none; /* Убираем подчеркивание ссылки */
+            text-decoration: none;
         }
 
-        /* Желтый цвет только для слова "Apricity" */
         .yellow-text {
-            color: #ffdb58; /* Солнечный желтый цвет */
+            color: #ffdb58;
         }
 
         @keyframes twinkle {
@@ -75,22 +74,32 @@
             }
         }
 
-        @media (max-width: 600px) {
-            h1 {
-                font-size: 20px;
-            }
+        .rose {
+            width: 200px; 
+            animation: pulse 2s ease-in-out infinite;
+        }
 
-            p {
-                font-size: 14px;
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.1);
+                opacity: 1;
+            }
+            100% {
+                transform: scale(1);
             }
         }
     </style>
 </head>
 <body>
     <div class="stars">
-        <!-- JavaScript для создания звезд -->
     </div>
     <div class="romantic-container">
+        <div class="rose-container">
+            <img src="1.png" alt="Роза" class="rose">
+        </div>
         <a href="https://en.wiktionary.org/wiki/apricity"><h1><span class="yellow-text">Apricity</span></h1></a>
         <p>
             Как я в пустыне влачился, стремясь к своей серафиме, так и она явилась передо мной, словно светоч во мраке ночи. Взгляд мой, как у прозорливого пророка, проник в её душу, словно древние мудрецы искали истину в дали.
@@ -106,7 +115,6 @@
     </div>
 
     <script>
-        // JavaScript для создания звезд
         const starsContainer = document.querySelector(".stars");
 
         for (let i = 0; i < 100; i++) {
