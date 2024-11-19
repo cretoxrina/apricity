@@ -17,7 +17,7 @@
             height: 100vh;
         }
 
-        .stars {
+        .battlefield {
             position: fixed;
             top: 0;
             left: 0;
@@ -26,14 +26,30 @@
             z-index: -1;
         }
 
-        .star {
+        .soldier {
             position: absolute;
-            width: 2px;
-            height: 2px;
-            background-color: #fff;
-            animation: twinkle 3s infinite;
+            width: 50px;
+            height: auto;
         }
 
+        .bullet {
+            position: absolute;
+            width: 5px;
+            height: 5px;
+            background-color: #ffdb58;
+            border-radius: 50%;
+        }
+
+        @keyframes move {
+            0% {
+                transform: translate(0, 0);
+                opacity: 1;
+            }
+            100% {
+                transform: translate(var(--dx), var(--dy));
+                opacity: 0;
+            }
+        }
         .romantic-container {
             color: #fff;
             text-align: center;
@@ -41,96 +57,99 @@
             position: relative;
             z-index: 1;
         }
-
-        h1 {
-            font-size: 24px;
-            margin-bottom: 20px;
-        }
-
-        p {
-            font-size: 16px;
-            max-width: 80%;
-            margin: 0 auto 20px;
-            text-indent: 20px;
-        }
-
-        a {
-            text-decoration: none;
-        }
-
-        .yellow-text {
-            color: #ffdb58;
-        }
-
-        .button {
-            background-color: #ffdb58;
-            color: #000;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-
-        .button:hover {
-            background-color: #ffeb8c;
-        }
-
-        @keyframes twinkle {
-            0% {
-                opacity: 0;
-            }
-            50% {
-                opacity: 1;
-            }
-            100% {
-                opacity: 0;
-            }
-        }
-
         .rose {
             width: 150px; 
             animation: pulse 2s ease-in-out infinite;
         }
-
-        @keyframes pulse {
-            0% {
-                transform: scale(1);
-            }
-            50% {
-                transform: scale(1.1);
-                opacity: 1;
-            }
-            100% {
-                transform: scale(1);
-            }
+        .yellow-text {
+            color: #ffdb58;
         }
     </style>
 </head>
 <body>
-    <div class="stars">
-        <!-- JavaScript-код для создания звезд -->
+    <div class="battlefield">
+        <!-- JavaScript-код добавит солдатиков и пули -->
     </div>
-    <div class="romantic-container">
-        <div class="rose-container">
-            <img src="1.png" alt="Роза" class="rose">
-        </div>
-        <a ><h1><span class="yellow-text">SOON</span></h1></a>
-   
+    
+
+   <div class="romantic-container">
+         <div class="rose-container">
+            <img src="1.png"  class="rose" >
+        </div> 
+        <h4 class="yellow-text">Господин старший лейтенант Толеукажы Куаныш!</h4>
+        <p>
+            Разрешите обратиться к Вам с искренними словами благодарности от всего сердца.
+            Даже шутя, Вы поддержали меня, такие аспекты взаимоотношения между солдатом и офицером крайне редко встретить. 
+
+            
+        </p>
+        <p>
+            Благодарю Вас за Ваш профессионализм и человеческое отношение. Для меня важно продолжать выполнять свои обязанности с осознанием, что рядом есть офицеры, на которых можно положиться.
+        </p>
+        <h6 class="yellow-text">С уважением, <br>
+рядовой Кенжетай</h6>
+        
     </div>
 
     <script>
-        const starsContainer = document.querySelector(".stars");
+        const battlefield = document.querySelector(".battlefield");
 
-        for (let i = 0; i < 100; i++) {
-            const star = document.createElement("div");
-            star.classList.add("star");
-            star.style.left = `${Math.random() * 100}%`;
-            star.style.top = `${Math.random() * 100}%`;
-            star.style.animationDelay = `${Math.random() * 3}s`;
-            starsContainer.appendChild(star);
+        function getRandomInRange(min, max) {
+            return Math.random() * (max - min) + min;
         }
 
+        // Добавляем солдатиков
+        for (let i = 0; i < 10; i++) {
+            const soldier = document.createElement("img");
+            soldier.src = "soldier.png"; 
+            soldier.classList.add("soldier");
+            soldier.style.left = `${getRandomInRange(10, 90)}%`;
+            soldier.style.top = `${getRandomInRange(10, 90)}%`;
+            battlefield.appendChild(soldier);
 
+            let horizontalDirection = 1; 
+            let verticalDirection = 1;  
+
+            setInterval(() => {
+                const currentLeft = parseFloat(soldier.style.left);
+                let newLeft = currentLeft + horizontalDirection * 0.5; 
+                if (newLeft > 90 || newLeft < 0) {
+                    horizontalDirection *= -1; 
+                }
+                soldier.style.left = `${newLeft}%`;
+
+                const currentTop = parseFloat(soldier.style.top);
+                let newTop = currentTop + verticalDirection * 0.5; 
+                if (newTop > 90 || newTop < 0) {
+                    verticalDirection *= -1; 
+                }
+                soldier.style.top = `${newTop}%`;
+            }, 30); 
+
+            setInterval(() => {
+                const bullet = document.createElement("div");
+                bullet.classList.add("bullet");
+
+                const soldierRect = soldier.getBoundingClientRect();
+                bullet.style.left = `${soldierRect.left + soldierRect.width / 2}px`;
+                bullet.style.top = `${soldierRect.top + soldierRect.height / 2}px`;
+
+                const angle = getRandomInRange(0, 360); 
+                const distance = 500; 
+                const dx = Math.cos(angle * (Math.PI / 180)) * distance; 
+                const dy = Math.sin(angle * (Math.PI / 180)) * distance; 
+
+                bullet.style.setProperty("--dx", `${dx}px`);
+                bullet.style.setProperty("--dy", `${dy}px`);
+
+                bullet.style.animation = "move 1s linear";
+                battlefield.appendChild(bullet);
+
+                setTimeout(() => {
+                    battlefield.removeChild(bullet);
+                }, 1000);
+            }, 700); 
+        }
     </script>
 </body>
 </html>
